@@ -8,8 +8,8 @@ public class CommandService {
         System.exit(0);
     }
 
-    public void addWiseSaying(String saying, String author) {
+    public int addWiseSaying(String saying, String author) {
         WiseSayingRepository wiseSayingRepository = new WiseSayingRepository();
-        wiseSayingRepository.addWiseSaying(saying, author);
+        return wiseSayingRepository.addWiseSaying(saying, author);
     }
 }
