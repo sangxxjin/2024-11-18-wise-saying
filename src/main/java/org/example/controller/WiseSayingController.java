@@ -1,5 +1,6 @@
 package org.example.controller;
 
+import org.example.enums.Command;
 import org.example.service.CommandService;
 import org.example.validator.CommandValidator;
 import org.example.view.InputView;
@@ -31,15 +32,16 @@ public class WiseSayingController {
     }
 
     private void runCommand(String command) {
-        switch (command) {
-            case "종료":
-                commandService.exitSystem();
-            case "등록":
-                inputView.showSayingPrompt();
-                String saying = inputView.getInput();
-                inputView.showAuthorPrompt();
-                String author = inputView.getInput();
-                commandService.addWiseSaying(saying, author);
+
+        if(Command.valueOf("EXIT").getValue().equals(command)) {
+            commandService.exitSystem();
+        }
+        if(Command.valueOf("REGISTER").getValue().equals(command)) {
+            inputView.showSayingPrompt();
+            String saying = inputView.getInput();
+            inputView.showAuthorPrompt();
+            String author = inputView.getInput();
+            outputView.showFinishRegister(commandService.addWiseSaying(saying, author));
         }
     }
 }
