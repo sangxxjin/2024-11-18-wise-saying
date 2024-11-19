@@ -1,7 +1,8 @@
 package org.example.enums;
 
 public enum Command {
-    EXIT("종료");
+    EXIT("종료"),
+    REGISTER("등록");
 
     private final String value;
 
@@ -11,5 +12,14 @@ public enum Command {
 
     public String getValue() {
         return value;
+    }
+
+    public static boolean isContains(String command) {
+        for (Command commandEnum : Command.values()) {
+            if (commandEnum.getValue().equals(command)) {
+                return true;
+            }
+        }
+        return false;
     }
 }
