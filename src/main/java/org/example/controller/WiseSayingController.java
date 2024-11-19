@@ -43,5 +43,8 @@ public class WiseSayingController {
             String author = inputView.getInput();
             outputView.showFinishRegister(commandService.addWiseSaying(saying, author));
         }
+        if(Command.valueOf("LIST").getValue().equals(command)) {
+            outputView.showList(commandService.getWiseSayings());
+        }
     }
 }
