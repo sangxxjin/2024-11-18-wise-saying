@@ -5,9 +5,10 @@ import org.example.model.WiseSaying;
 
 public class OutputView {
 
-    public static final String START_MESSAGE = "== 명언 앱 ==";
-    public static final String INPUT_PROMPT = "명령) ";
-    public static final String FINISH_REGISTER = "번 명언이 등록되었습니다.";
+    private static final String START_MESSAGE = "== 명언 앱 ==";
+    private static final String INPUT_PROMPT = "명령) ";
+    private static final String FINISH_REGISTER = "번 명언이 등록되었습니다.";
+    private static final String FINISH_DELETE = "번 명언이 삭제되었습니다.";
     private static final String HEADER = "번호 / 작가 / 명언";
     private static final String SEPARATOR = "----------------------";
 
@@ -22,6 +23,9 @@ public class OutputView {
 
     public void showFinishRegister(int number) {
         System.out.println(number + FINISH_REGISTER);
+    }
+    public void showFinishDelete(int number) {
+        System.out.println(number + FINISH_DELETE);
     }
 
     public void showList(List<WiseSaying> wiseSayings) {
