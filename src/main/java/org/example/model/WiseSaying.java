@@ -2,12 +2,19 @@ package org.example.model;
 
 public class WiseSaying {
 
+    private static int nextId = 1;
+    private int id;
     private String saying;
     private String author;
 
-    public WiseSaying(String wiseSaying, String author) {
-        this.saying = wiseSaying;
+    public WiseSaying(String saying, String author) {
+        this.id = nextId++;
+        this.saying = saying;
         this.author = author;
+    }
+
+    public int getId() {
+        return this.id;
     }
 
     public String getWiseSaying() {
