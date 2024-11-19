@@ -9,6 +9,7 @@ public class OutputView {
     private static final String INPUT_PROMPT = "명령) ";
     private static final String FINISH_REGISTER = "번 명언이 등록되었습니다.";
     private static final String FINISH_DELETE = "번 명언이 삭제되었습니다.";
+    private static final String NOT_EXITST_DELETE = "번 명언은 존재하지 않습니다.";
     private static final String HEADER = "번호 / 작가 / 명언";
     private static final String SEPARATOR = "----------------------";
 
@@ -24,8 +25,13 @@ public class OutputView {
     public void showFinishRegister(int number) {
         System.out.println(number + FINISH_REGISTER);
     }
+
     public void showFinishDelete(int number) {
         System.out.println(number + FINISH_DELETE);
+    }
+
+    public void showNotExistWiseSaying(int number) {
+        System.out.println(number + NOT_EXITST_DELETE);
     }
 
     public void showList(List<WiseSaying> wiseSayings) {

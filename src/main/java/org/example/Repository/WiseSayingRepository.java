@@ -24,5 +24,13 @@ public class WiseSayingRepository {
         }
         return id;
     }
+    public boolean findWiseSaying(int id) {
+        for(WiseSaying wiseSaying : wiseSayings) {
+            if(wiseSaying.getId() == id) {
+                return true;
+            }
+        }
+        return false;
+    }
 
 }

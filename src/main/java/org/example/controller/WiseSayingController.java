@@ -47,8 +47,11 @@ public class WiseSayingController {
             outputView.showList(wiseSayingService.getWiseSayings());
         }
         if (command.startsWith(Command.valueOf("DELETE").getValue())) {
-            outputView.showFinishDelete(wiseSayingService.deleteWiseSaying(
-                inputView.extractDeleteWiseSayingId(command)));
+            int wiseSayingId= inputView.extractDeleteWiseSayingId(command);
+            if(wiseSayingService.findWiseSaying(wiseSayingId)){
+                outputView.showFinishDelete(wiseSayingService.deleteWiseSaying(wiseSayingId));
+            }
+            else outputView.showNotExistWiseSaying(wiseSayingId);
         }
     }
 }

@@ -24,4 +24,7 @@ public class WiseSayingService {
     public int deleteWiseSaying(int id) {
         return wiseSayingRepository.deleteWiseSaying(id);
     }
+    public boolean findWiseSaying(int id){
+        return wiseSayingRepository.findWiseSaying(id);
+    }
 }
