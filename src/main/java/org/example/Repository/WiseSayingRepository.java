@@ -13,5 +13,8 @@ public class WiseSayingRepository {
         wiseSayings.add(newWiseSaying);
         return newWiseSaying.getId();
     }
+    public List<WiseSaying> getWiseSayings() {
+        return wiseSayings;
+    }
 
 }
