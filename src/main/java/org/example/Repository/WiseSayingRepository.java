@@ -8,7 +8,10 @@ public class WiseSayingRepository {
 
     public List<WiseSaying> wiseSayings = new ArrayList<>();
 
-    public void addWiseSaying(String saying, String author) {
-        wiseSayings.add(new WiseSaying(saying, author));
+    public int addWiseSaying(String saying, String author) {
+        WiseSaying newWiseSaying = new WiseSaying(saying, author);
+        wiseSayings.add(newWiseSaying);
+        return newWiseSaying.getId();
     }
+
 }
