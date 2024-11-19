@@ -3,7 +3,8 @@ package org.example.enums;
 public enum Command {
     EXIT("종료"),
     REGISTER("등록"),
-    LIST("목록");
+    LIST("목록"),
+    DELETE("삭제");
 
     private final String value;
 
