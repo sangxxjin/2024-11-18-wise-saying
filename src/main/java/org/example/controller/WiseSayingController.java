@@ -41,6 +41,7 @@ public class WiseSayingController {
     private void runCommand(String command) throws IOException {
         try {
             if (Command.valueOf("EXIT").getValue().equals(command)) {
+                wiseSayingService.saveLastWiseSayingIdToFile();
                 wiseSayingService.exitSystem();
 
             }
@@ -60,6 +61,7 @@ public class WiseSayingController {
                 int wiseSayingId = inputView.extractDeleteWiseSayingId(command);
                 if (wiseSayingService.isExistWiseSaying(wiseSayingId)) {
                     outputView.showFinishDelete(wiseSayingService.deleteWiseSaying(wiseSayingId));
+                    wiseSayingService.deleteWiseSayingFile(wiseSayingId);
                 } else {
                     outputView.showNotExistWiseSaying(wiseSayingId);
                 }

@@ -67,8 +67,24 @@ public class WiseSayingService {
                 file.delete();
             } catch (Exception e) {
                 System.err.println("Error deleting file: " + file.getName());
-                e.printStackTrace();
             }
+        }
+    }
+    public void deleteWiseSayingFile(int id){
+        String filePath = "src/main/java/org/example/db/wiseSaying/" + id + ".json";
+        File file = new File(filePath);
+        try {
+            file.delete();
+        } catch (Exception e) {
+            System.err.println("Error deleting file: " + file.getName());
+        }
+
+    }
+    public void saveLastWiseSayingIdToFile() throws IOException {
+        String filePath = "src/main/java/org/example/db/wiseSaying/lastId.txt";
+        int lastWiseSayingId = wiseSayingRepository.getLastWiseSayingId();
+        try (FileWriter writer = new FileWriter(filePath)) {
+            writer.write(String.valueOf(lastWiseSayingId));
         }
     }
 }
