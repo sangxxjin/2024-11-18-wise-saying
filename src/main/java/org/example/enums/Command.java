@@ -18,7 +18,7 @@ public enum Command {
 
     public static boolean isContains(String command) {
         for (Command commandEnum : Command.values()) {
-            if (commandEnum.getValue().equals(command)) {
+            if (command.contains(commandEnum.getValue())) {
                 return true;
             }
         }
