@@ -1,5 +1,9 @@
 package org.example.model;
 
+import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
+
 public class WiseSaying {
 
     private static int nextId = 1;
@@ -30,5 +34,4 @@ public class WiseSaying {
     public void setAuthor(String author) {
         this.author = author;
     }
-
 }

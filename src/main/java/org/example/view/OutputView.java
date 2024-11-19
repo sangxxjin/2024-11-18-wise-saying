@@ -44,7 +44,6 @@ public class OutputView {
     public void showList(List<WiseSaying> wiseSayings) {
         System.out.println(HEADER);
         System.out.println(SEPARATOR);
-        System.out.println(wiseSayings.size());
         StringBuilder sb = new StringBuilder();
         for (WiseSaying saying : wiseSayings) {
             sb.append(saying.getId()).append(" / ").append(saying.getAuthor()).append(" / ")
