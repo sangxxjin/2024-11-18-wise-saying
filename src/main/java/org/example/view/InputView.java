@@ -5,8 +5,10 @@ import java.util.Scanner;
 public class InputView {
 
     private final Scanner sc = new Scanner(System.in);
-    public static final String SAYING_PROMPT = "명언 : ";
-    public static final String AUTHOR_PROMPT = "작가 : ";
+    private static final String SAYING_PROMPT = "명언 : ";
+    private static final String AUTHOR_PROMPT = "작가 : ";
+
+
 
     public String getInput() {
         return sc.nextLine();
@@ -22,4 +24,6 @@ public class InputView {
     public void showAuthorPrompt() {
         System.out.print(AUTHOR_PROMPT);
     }
+
+
 }

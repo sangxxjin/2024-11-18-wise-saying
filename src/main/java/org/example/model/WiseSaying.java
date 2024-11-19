@@ -24,5 +24,11 @@ public class WiseSaying {
     public String getAuthor() {
         return this.author;
     }
+    public void setSaying(String saying) {
+        this.saying = saying;
+    }
+    public void setAuthor(String author) {
+        this.author = author;
+    }
 
 }

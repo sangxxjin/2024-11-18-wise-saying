@@ -12,6 +12,8 @@ public class OutputView {
     private static final String NOT_EXITST_DELETE = "번 명언은 존재하지 않습니다.";
     private static final String HEADER = "번호 / 작가 / 명언";
     private static final String SEPARATOR = "----------------------";
+    private static final String ORIGIN_SAYING_PROMPT = "명언(기존) : ";
+    private static final String ORIGIN_AUTHOR_PROMPT = "작가(기존) : ";
 
 
     public void showStartMessage() {
@@ -33,7 +35,12 @@ public class OutputView {
     public void showNotExistWiseSaying(int number) {
         System.out.println(number + NOT_EXITST_DELETE);
     }
-
+    public void showOriginWiseSaying(String saying){
+        System.out.println(ORIGIN_SAYING_PROMPT+saying);
+    }
+    public void showOriginWiseSayingAuthor(String author){
+        System.out.println(ORIGIN_AUTHOR_PROMPT+author);
+    }
     public void showList(List<WiseSaying> wiseSayings) {
         System.out.println(HEADER);
         System.out.println(SEPARATOR);

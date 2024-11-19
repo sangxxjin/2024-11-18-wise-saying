@@ -4,7 +4,8 @@ public enum Command {
     EXIT("종료"),
     REGISTER("등록"),
     LIST("목록"),
-    DELETE("삭제");
+    DELETE("삭제"),
+    UPDATE("수정");
 
     private final String value;
 

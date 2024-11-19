@@ -1,6 +1,7 @@
 package org.example.service;
 
 import java.util.List;
+import java.util.Map;
 import org.example.Repository.WiseSayingRepository;
 import org.example.model.WiseSaying;
 
@@ -24,7 +25,13 @@ public class WiseSayingService {
     public int deleteWiseSaying(int id) {
         return wiseSayingRepository.deleteWiseSaying(id);
     }
-    public boolean findWiseSaying(int id){
-        return wiseSayingRepository.findWiseSaying(id);
+    public int updateWiseSaying(int id, String saying, String author) {
+        return wiseSayingRepository.updateWiseSaying(id, saying, author);
+    }
+    public Map<String, String> getWiseSaying(int id){
+        return wiseSayingRepository.getWiseSaying(id);
+    }
+    public boolean isExistWiseSaying(int id){
+        return wiseSayingRepository.isExistWiseSaying(id);
     }
 }

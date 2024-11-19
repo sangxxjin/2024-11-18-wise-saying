@@ -1,5 +1,6 @@
 package org.example.controller;
 
+import java.util.Map;
 import org.example.enums.Command;
 import org.example.service.WiseSayingService;
 import org.example.validator.CommandValidator;
@@ -48,8 +49,22 @@ public class WiseSayingController {
         }
         if (command.startsWith(Command.valueOf("DELETE").getValue())) {
             int wiseSayingId= inputView.extractDeleteWiseSayingId(command);
-            if(wiseSayingService.findWiseSaying(wiseSayingId)){
+            if(wiseSayingService.isExistWiseSaying(wiseSayingId)){
                 outputView.showFinishDelete(wiseSayingService.deleteWiseSaying(wiseSayingId));
+            }
+            else outputView.showNotExistWiseSaying(wiseSayingId);
+        }
+        if (command.startsWith(Command.valueOf("UPDATE").getValue())) {
+            int wiseSayingId= inputView.extractDeleteWiseSayingId(command);
+            if(wiseSayingService.isExistWiseSaying(wiseSayingId)){
+                Map<String, String> wiseSaying = wiseSayingService.getWiseSaying(wiseSayingId);
+                outputView.showOriginWiseSaying(wiseSaying.get("wiseSaying"));
+                inputView.showSayingPrompt();
+                String newWiseSaying = inputView.getInput();
+                outputView.showOriginWiseSayingAuthor(wiseSaying.get("author"));
+                inputView.showAuthorPrompt();
+                String newAuthor = inputView.getInput();
+                wiseSayingService.updateWiseSaying(wiseSayingId, newWiseSaying, newAuthor);
             }
             else outputView.showNotExistWiseSaying(wiseSayingId);
         }
