@@ -11,6 +11,9 @@ public class InputView {
     public String getInput() {
         return sc.nextLine();
     }
+    public int extractDeleteWiseSayingId(String input) {
+        return Integer.parseInt(input.split("id=")[1]);
+    }
 
     public void showSayingPrompt() {
         System.out.print(SAYING_PROMPT);
