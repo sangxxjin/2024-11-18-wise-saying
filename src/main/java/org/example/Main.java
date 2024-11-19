@@ -1,7 +1,7 @@
 package org.example;
 
 import org.example.controller.WiseSayingController;
-import org.example.service.CommandService;
+import org.example.service.WiseSayingService;
 import org.example.view.InputView;
 import org.example.view.OutputView;
 
@@ -12,9 +12,9 @@ public class Main {
     public static void main(String[] args) {
         InputView inputView = new InputView();
         OutputView outputView = new OutputView();
-        CommandService commandService = new CommandService();
+        WiseSayingService wiseSayingService = new WiseSayingService();
         WiseSayingController controller = new WiseSayingController(inputView, outputView,
-            commandService);
+            wiseSayingService);
         controller.run();
     }
 }

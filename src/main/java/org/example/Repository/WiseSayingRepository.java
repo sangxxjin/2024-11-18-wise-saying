@@ -16,5 +16,13 @@ public class WiseSayingRepository {
     public List<WiseSaying> getWiseSayings() {
         return wiseSayings;
     }
+    public int deleteWiseSaying(int id) {
+        for(WiseSaying wiseSaying : wiseSayings) {
+            if(wiseSaying.getId() == id) {
+                wiseSayings.remove(wiseSaying);
+            }
+        }
+        return id;
+    }
 
 }
