@@ -14,6 +14,7 @@ public class OutputView {
     private static final String SEPARATOR = "----------------------";
     private static final String ORIGIN_SAYING_PROMPT = "명언(기존) : ";
     private static final String ORIGIN_AUTHOR_PROMPT = "작가(기존) : ";
+    private static final String FINISH_BUILD = "data.json 파일의 내용이 갱신되었습니다.";
 
 
     public void showStartMessage() {
@@ -40,6 +41,9 @@ public class OutputView {
     }
     public void showOriginWiseSayingAuthor(String author){
         System.out.println(ORIGIN_AUTHOR_PROMPT+author);
+    }
+    public void showFinishBuild() {
+        System.out.println(FINISH_BUILD);
     }
     public void showList(List<WiseSaying> wiseSayings) {
         System.out.println(HEADER);
