@@ -5,7 +5,9 @@ public enum Command {
     REGISTER("등록"),
     LIST("목록"),
     DELETE("삭제"),
-    UPDATE("수정");
+    UPDATE("수정"),
+    BUILD("빌드");
+
 
     private final String value;
 
