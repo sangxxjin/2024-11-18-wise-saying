@@ -3,6 +3,7 @@ package org.example.service;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import org.example.Repository.WiseSayingRepository;
@@ -85,6 +86,25 @@ public class WiseSayingService {
         int lastWiseSayingId = wiseSayingRepository.getLastWiseSayingId();
         try (FileWriter writer = new FileWriter(filePath)) {
             writer.write(String.valueOf(lastWiseSayingId));
+        }
+    }
+    public void saveDataFile(List<WiseSaying> wiseSayings) {
+        String filePath = "src/main/java/org/example/db/wiseSaying/data.json";
+        try (FileWriter writer = new FileWriter(filePath)) {
+            List<String> jsonList = new ArrayList<>();
+            for (WiseSaying wiseSaying : wiseSayings) {
+                String json = "{" +
+                    "\"id\": " + wiseSaying.getId() + "," +
+                    "\"content\": \"" + wiseSaying.getWiseSaying() + "\"," +
+                    "\"author\": \"" + wiseSaying.getAuthor() + "\"" +
+                    "}";
+                jsonList.add(json);
+            }
+            writer.write("[");
+            writer.write(String.join(",", jsonList));
+            writer.write("]");
+        } catch (IOException e) {
+            System.err.println("파일 저장 중 오류 발생: " + e.getMessage());
         }
     }
 }
