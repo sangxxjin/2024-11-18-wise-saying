@@ -82,6 +82,10 @@ public class WiseSayingController {
                     outputView.showNotExistWiseSaying(wiseSayingId);
                 }
             }
+            if (command.startsWith(Command.valueOf("BUILD").getValue())) {
+                wiseSayingService.saveDataFile(wiseSayingService.getWiseSayings());
+                outputView.showFinishBuild();
+            }
         } catch (Exception e) {
             throw new RuntimeException(e);
         }
