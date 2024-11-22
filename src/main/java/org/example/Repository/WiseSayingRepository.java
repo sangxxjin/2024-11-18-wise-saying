@@ -75,7 +75,7 @@ public class WiseSayingRepository {
         throws IOException {
         String json = StringUtil.parseToJson(id, saying, author);
 
-        String filePath = baseFilePath + id + ".json";
+        String filePath = baseFilePath + id + FileUitl.jsonFileType();
         try (FileWriter writer = new FileWriter(filePath)) {
             writer.write(json);
         }
@@ -94,7 +94,7 @@ public class WiseSayingRepository {
     }
 
     public void deleteWiseSayingFile(int id, String baseFilePath) {
-        String filePath = baseFilePath + id + ".json";
+        String filePath = baseFilePath + id + FileUitl.jsonFileType();
         File file = new File(filePath);
         try {
             file.delete();

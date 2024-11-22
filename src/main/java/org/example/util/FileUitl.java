@@ -8,9 +8,15 @@ public class FileUitl {
         return "src/main/resources/db/wiseSaying/";
     }
     public static String dataFileName(){
-        return "data.json";
+        return "data"+jsonFileType();
     }
     public static String lastIdFileName(){
-        return "lastId.txt";
+        return "lastId"+txtFileType();
+    }
+    public static String jsonFileType(){
+        return ".json";
+    }
+    public static String txtFileType(){
+        return ".txt";
     }
 }
