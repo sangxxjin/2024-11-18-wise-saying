@@ -49,7 +49,7 @@ public class OutputView {
         System.out.println(HEADER);
         System.out.println(SEPARATOR);
         StringBuilder sb = new StringBuilder();
-        for (WiseSaying saying : wiseSayings) {
+        for (WiseSaying saying : wiseSayings.reversed()) {
             sb.append(saying.getId()).append(" / ").append(saying.getAuthor()).append(" / ")
                 .append(saying.getWiseSaying()).append("\n");
         }
