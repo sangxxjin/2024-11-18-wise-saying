@@ -38,56 +38,79 @@ public class WiseSayingController {
         }
     }
 
-    private void runCommand(String command) throws IOException {
+    private void runCommand(String command) {
         try {
             if (Command.valueOf("EXIT").getValue().equals(command)) {
-                wiseSayingService.saveLastWiseSayingIdToFile();
-                wiseSayingService.exitSystem();
-
+                runExit();
             }
             if (Command.valueOf("REGISTER").getValue().equals(command)) {
-                inputView.showSayingPrompt();
-                String saying = inputView.getInput();
-                inputView.showAuthorPrompt();
-                String author = inputView.getInput();
-                int wiseSayingId = wiseSayingService.addWiseSaying(saying, author);
-                outputView.showFinishRegister(wiseSayingId);
-                wiseSayingService.saveToFile(wiseSayingId, saying, author);
+                runRegister();
             }
             if (Command.valueOf("LIST").getValue().equals(command)) {
-                outputView.showList(wiseSayingService.getWiseSayings());
+                runList();
             }
             if (command.startsWith(Command.valueOf("DELETE").getValue())) {
-                int wiseSayingId = inputView.extractDeleteWiseSayingId(command);
-                if (wiseSayingService.isExistWiseSaying(wiseSayingId)) {
-                    outputView.showFinishDelete(wiseSayingService.deleteWiseSaying(wiseSayingId));
-                    wiseSayingService.deleteWiseSayingFile(wiseSayingId);
-                } else {
-                    outputView.showNotExistWiseSaying(wiseSayingId);
-                }
+                runDelete(command);
             }
             if (command.startsWith(Command.valueOf("UPDATE").getValue())) {
-                int wiseSayingId = inputView.extractDeleteWiseSayingId(command);
-                if (wiseSayingService.isExistWiseSaying(wiseSayingId)) {
-                    Map<String, String> wiseSaying = wiseSayingService.getWiseSaying(wiseSayingId);
-                    outputView.showOriginWiseSaying(wiseSaying.get("wiseSaying"));
-                    inputView.showSayingPrompt();
-                    String newWiseSaying = inputView.getInput();
-                    outputView.showOriginWiseSayingAuthor(wiseSaying.get("author"));
-                    inputView.showAuthorPrompt();
-                    String newAuthor = inputView.getInput();
-                    wiseSayingService.updateWiseSaying(wiseSayingId, newWiseSaying, newAuthor);
-                    wiseSayingService.saveToFile(wiseSayingId, newWiseSaying, newAuthor);
-                } else {
-                    outputView.showNotExistWiseSaying(wiseSayingId);
-                }
+                runUpdate(command);
             }
             if (command.startsWith(Command.valueOf("BUILD").getValue())) {
-                wiseSayingService.saveDataFile(wiseSayingService.getWiseSayings());
-                outputView.showFinishBuild();
+                runBuild();
             }
         } catch (Exception e) {
             throw new RuntimeException(e);
         }
+    }
+
+    private void runExit() throws IOException {
+        wiseSayingService.saveLastWiseSayingIdToFile();
+        wiseSayingService.exitSystem();
+    }
+
+    private void runRegister() throws IOException {
+        inputView.showSayingPrompt();
+        String saying = inputView.getInput();
+        inputView.showAuthorPrompt();
+        String author = inputView.getInput();
+        int wiseSayingId = wiseSayingService.addWiseSaying(saying, author);
+        outputView.showFinishRegister(wiseSayingId);
+        wiseSayingService.saveToFile(wiseSayingId, saying, author);
+    }
+
+    private void runList() {
+        outputView.showList(wiseSayingService.getWiseSayings());
+    }
+
+    private void runDelete(String command) {
+        int wiseSayingId = inputView.extractDeleteWiseSayingId(command);
+        if (wiseSayingService.isExistWiseSaying(wiseSayingId)) {
+            outputView.showFinishDelete(wiseSayingService.deleteWiseSaying(wiseSayingId));
+            wiseSayingService.deleteWiseSayingFile(wiseSayingId);
+        } else {
+            outputView.showNotExistWiseSaying(wiseSayingId);
+        }
+    }
+
+    private void runUpdate(String command) throws IOException {
+        int wiseSayingId = inputView.extractDeleteWiseSayingId(command);
+        if (wiseSayingService.isExistWiseSaying(wiseSayingId)) {
+            Map<String, String> wiseSaying = wiseSayingService.getWiseSaying(wiseSayingId);
+            outputView.showOriginWiseSaying(wiseSaying.get("wiseSaying"));
+            inputView.showSayingPrompt();
+            String newWiseSaying = inputView.getInput();
+            outputView.showOriginWiseSayingAuthor(wiseSaying.get("author"));
+            inputView.showAuthorPrompt();
+            String newAuthor = inputView.getInput();
+            wiseSayingService.updateWiseSaying(wiseSayingId, newWiseSaying, newAuthor);
+            wiseSayingService.saveToFile(wiseSayingId, newWiseSaying, newAuthor);
+        } else {
+            outputView.showNotExistWiseSaying(wiseSayingId);
+        }
+    }
+
+    private void runBuild() {
+        wiseSayingService.saveDataFile(wiseSayingService.getWiseSayings());
+        outputView.showFinishBuild();
     }
 }
