@@ -1,13 +1,9 @@
 package org.example.model;
 
-import java.io.File;
-import java.io.FileWriter;
-import java.io.IOException;
-
 public class WiseSaying {
 
     private static int nextId = 1;
-    private int id;
+    private final int id;
     private String saying;
     private String author;
 
@@ -28,9 +24,11 @@ public class WiseSaying {
     public String getAuthor() {
         return this.author;
     }
+
     public void setSaying(String saying) {
         this.saying = saying;
     }
+
     public void setAuthor(String author) {
         this.author = author;
     }
