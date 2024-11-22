@@ -42,22 +42,26 @@ public class WiseSayingService {
     public boolean isExistWiseSaying(int id) {
         return wiseSayingRepository.isExistWiseSaying(id);
     }
-    public void saveToFile(int id, String saying, String author) throws IOException {
-        wiseSayingRepository.saveToFile(id, saying, author);
+
+    public void saveToFile(int id, String saying, String author, String filePath) throws IOException {
+        wiseSayingRepository.saveToFile(id, saying, author, filePath);
     }
 
-    public void deleteAllFiles() {
-        wiseSayingRepository.deleteAllFiles();
+    public void deleteAllFiles(String filePath) {
+        wiseSayingRepository.deleteAllFiles(filePath);
     }
-    public void deleteWiseSayingFile(int id){
-        wiseSayingRepository.deleteWiseSayingFile(id);
+
+    public void deleteWiseSayingFile(int id,String filePath) {
+        wiseSayingRepository.deleteWiseSayingFile(id, filePath);
 
     }
-    public void saveLastWiseSayingIdToFile() throws IOException {
-        wiseSayingRepository.saveLastWiseSayingIdToFile();
+
+    public void saveLastWiseSayingIdToFile(String filePath) throws IOException {
+        wiseSayingRepository.saveLastWiseSayingIdToFile(filePath);
     }
-    public void saveDataFile(List<WiseSaying> wiseSayings) {
-        wiseSayingRepository.saveDataFile(wiseSayings);
+
+    public void saveDataFile(List<WiseSaying> wiseSayings,String filePath) {
+        wiseSayingRepository.saveDataFile(wiseSayings, filePath);
     }
 
 

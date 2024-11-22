@@ -8,6 +8,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.NoSuchElementException;
 import org.example.model.WiseSaying;
+import org.example.util.FileUitl;
 
 public class WiseSayingRepository {
 
@@ -69,21 +70,21 @@ public class WiseSayingRepository {
         return maxId;
     }
 
-    public void saveToFile(int id, String saying, String author) throws IOException {
+    public void saveToFile(int id, String saying, String author,String baseFilePath) throws IOException {
         String json = "{\n" +
             "  \"id\": " + id + ",\n" +
             "  \"content\": \"" + saying + "\",\n" +
             "  \"author\": \"" + author + "\"\n" +
             "}";
 
-        String filePath = "src/main/resources/db/wiseSaying/" + id + ".json";
+        String filePath = baseFilePath + id + ".json";
         try (FileWriter writer = new FileWriter(filePath)) {
             writer.write(json);
         }
     }
 
-    public void deleteAllFiles() {
-        File directory = new File("src/main/resources/db/wiseSaying");
+    public void deleteAllFiles(String baseFilePath) {
+        File directory = new File(baseFilePath);
         File[] files = directory.listFiles();
         for (File file : files) {
             try {
@@ -94,8 +95,8 @@ public class WiseSayingRepository {
         }
     }
 
-    public void deleteWiseSayingFile(int id) {
-        String filePath = "src/main/resources/db/wiseSaying/" + id + ".json";
+    public void deleteWiseSayingFile(int id,String baseFilePath) {
+        String filePath = baseFilePath + id + ".json";
         File file = new File(filePath);
         try {
             file.delete();
@@ -105,16 +106,16 @@ public class WiseSayingRepository {
 
     }
 
-    public void saveLastWiseSayingIdToFile() throws IOException {
-        String filePath = "src/main/resources/db/wiseSaying/lastId.txt";
+    public void saveLastWiseSayingIdToFile(String baseFilePath) throws IOException {
+        String filePath = baseFilePath+FileUitl.lastIdFileName();
         int lastWiseSayingId = getLastWiseSayingId();
         try (FileWriter writer = new FileWriter(filePath)) {
             writer.write(String.valueOf(lastWiseSayingId));
         }
     }
 
-    public void saveDataFile(List<WiseSaying> wiseSayings) {
-        String filePath = "src/main/resources/db/wiseSaying/data.json";
+    public void saveDataFile(List<WiseSaying> wiseSayings,String baseFilePath) {
+        String filePath = baseFilePath+ FileUitl.dataFileName();
         try (FileWriter writer = new FileWriter(filePath)) {
             List<String> jsonList = new ArrayList<>();
             for (WiseSaying wiseSaying : wiseSayings) {

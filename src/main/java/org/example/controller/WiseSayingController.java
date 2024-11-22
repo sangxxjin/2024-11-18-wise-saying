@@ -13,16 +13,18 @@ public class WiseSayingController {
     private final InputView inputView;
     private final OutputView outputView;
     private final WiseSayingService wiseSayingService;
+    private final String filePath;
 
     public WiseSayingController(InputView inputView, OutputView outputView,
-        WiseSayingService wiseSayingService) {
+        WiseSayingService wiseSayingService, String filePath) {
         this.inputView = inputView;
         this.outputView = outputView;
         this.wiseSayingService = wiseSayingService;
+        this.filePath = filePath;
     }
 
     public void run() {
-        wiseSayingService.deleteAllFiles();
+        wiseSayingService.deleteAllFiles(filePath);
         outputView.showStartMessage();
         try {
             while (true) {
@@ -64,7 +66,7 @@ public class WiseSayingController {
     }
 
     private void runExit() throws IOException {
-        wiseSayingService.saveLastWiseSayingIdToFile();
+        wiseSayingService.saveLastWiseSayingIdToFile(filePath);
         wiseSayingService.exitSystem();
     }
 
@@ -75,7 +77,7 @@ public class WiseSayingController {
         String author = inputView.getInput();
         int wiseSayingId = wiseSayingService.addWiseSaying(saying, author);
         outputView.showFinishRegister(wiseSayingId);
-        wiseSayingService.saveToFile(wiseSayingId, saying, author);
+        wiseSayingService.saveToFile(wiseSayingId, saying, author, filePath);
     }
 
     private void runList() {
@@ -86,7 +88,7 @@ public class WiseSayingController {
         int wiseSayingId = inputView.extractDeleteWiseSayingId(command);
         if (wiseSayingService.isExistWiseSaying(wiseSayingId)) {
             outputView.showFinishDelete(wiseSayingService.deleteWiseSaying(wiseSayingId));
-            wiseSayingService.deleteWiseSayingFile(wiseSayingId);
+            wiseSayingService.deleteWiseSayingFile(wiseSayingId, filePath);
         } else {
             outputView.showNotExistWiseSaying(wiseSayingId);
         }
@@ -103,14 +105,14 @@ public class WiseSayingController {
             inputView.showAuthorPrompt();
             String newAuthor = inputView.getInput();
             wiseSayingService.updateWiseSaying(wiseSayingId, newWiseSaying, newAuthor);
-            wiseSayingService.saveToFile(wiseSayingId, newWiseSaying, newAuthor);
+            wiseSayingService.saveToFile(wiseSayingId, newWiseSaying, newAuthor, filePath);
         } else {
             outputView.showNotExistWiseSaying(wiseSayingId);
         }
     }
 
     private void runBuild() {
-        wiseSayingService.saveDataFile(wiseSayingService.getWiseSayings());
+        wiseSayingService.saveDataFile(wiseSayingService.getWiseSayings(), filePath);
         outputView.showFinishBuild();
     }
 }
