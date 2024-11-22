@@ -1,6 +1,6 @@
-package org.example.util;
+package org.example.config;
 
-public class FileUitl {
+public class AppConfig {
     public static String testFilePath(){
         return "src/test/resources/db/wiseSaying/";
     }
@@ -18,5 +18,12 @@ public class FileUitl {
     }
     public static String txtFileType(){
         return ".txt";
+    }
+    public static String parseToJson(int id, String wiseSaying, String author) {
+        return "{\n" +
+            "  \"id\": " + id + ",\n" +
+            "  \"content\": \"" + wiseSaying + "\",\n" +
+            "  \"author\": \"" + author + "\"\n" +
+            "}";
     }
 }

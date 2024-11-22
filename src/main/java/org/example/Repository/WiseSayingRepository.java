@@ -1,15 +1,14 @@
 package org.example.Repository;
 
-import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import java.util.NoSuchElementException;
+import org.example.config.AppConfig;
 import org.example.model.WiseSaying;
-import org.example.util.FileUitl;
-import org.example.util.StringUtil;
+import org.example.util.FileUtil;
 
 public class WiseSayingRepository {
 
@@ -73,39 +72,26 @@ public class WiseSayingRepository {
 
     public void saveToFile(int id, String saying, String author, String baseFilePath)
         throws IOException {
-        String json = StringUtil.parseToJson(id, saying, author);
+        String json = AppConfig.parseToJson(id, saying, author); // JSON 변환
 
-        String filePath = baseFilePath + id + FileUitl.jsonFileType();
-        try (FileWriter writer = new FileWriter(filePath)) {
-            writer.write(json);
-        }
+        String filePath = baseFilePath + id + AppConfig.jsonFileType(); // 파일 경로 생성
+        FileUtil.writeToFile(filePath, json); // 유틸리티 메서드 호출
     }
 
     public void deleteAllFiles(String baseFilePath) {
-        File directory = new File(baseFilePath);
-        File[] files = directory.listFiles();
-        for (File file : files) {
-            try {
-                file.delete();
-            } catch (Exception e) {
-                System.err.println("Error deleting file: " + file.getName());
-            }
-        }
+        FileUtil.deleteFilesInDirectory(baseFilePath);
     }
 
     public void deleteWiseSayingFile(int id, String baseFilePath) {
-        String filePath = baseFilePath + id + FileUitl.jsonFileType();
-        File file = new File(filePath);
-        try {
-            file.delete();
-        } catch (Exception e) {
-            System.err.println("Error deleting file: " + file.getName());
+        String filePath = baseFilePath + id + AppConfig.jsonFileType();
+        boolean isDeleted = FileUtil.deleteFile(filePath);
+        if (!isDeleted) {
+            System.err.println("Failed to delete file: " + filePath);
         }
-
     }
 
     public void saveLastWiseSayingIdToFile(String baseFilePath) throws IOException {
-        String filePath = baseFilePath + FileUitl.lastIdFileName();
+        String filePath = baseFilePath + AppConfig.lastIdFileName();
         int lastWiseSayingId = getLastWiseSayingId();
         try (FileWriter writer = new FileWriter(filePath)) {
             writer.write(String.valueOf(lastWiseSayingId));
@@ -113,11 +99,11 @@ public class WiseSayingRepository {
     }
 
     public void saveDataFile(List<WiseSaying> wiseSayings, String baseFilePath) {
-        String filePath = baseFilePath + FileUitl.dataFileName();
+        String filePath = baseFilePath + AppConfig.dataFileName();
         try (FileWriter writer = new FileWriter(filePath)) {
             List<String> jsonList = new ArrayList<>();
             for (WiseSaying wiseSaying : wiseSayings) {
-                String json = StringUtil.parseToJson(
+                String json = AppConfig.parseToJson(
                     wiseSaying.getId(),
                     wiseSaying.getWiseSaying(),
                     wiseSaying.getAuthor()
