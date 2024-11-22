@@ -4,6 +4,8 @@ import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
+import java.io.File;
+import java.io.IOException;
 import java.util.List;
 import org.example.model.WiseSaying;
 import org.example.util.FileUitl;
@@ -62,4 +64,49 @@ class WiseSayingServiceTest {
         assertTrue(wiseSayingService.isExistWiseSaying(id));
         assertFalse(wiseSayingService.isExistWiseSaying(999));
     }
+
+    @Test
+    @DisplayName("파일에 명언 저장 테스트")
+    void saveToFile() throws IOException {
+        String saying = "명언";
+        String author = "작가";
+        int id = wiseSayingService.addWiseSaying(saying, author);
+        wiseSayingService.saveToFile(id, saying, author, filePath);
+        String savedFilePath = filePath + id + FileUitl.jsonFileType();
+        File file = new File(savedFilePath);
+        assertThat(file.exists()).isTrue();
+
+        file.delete();
+    }
+
+    @Test
+    @DisplayName("파일 삭제 테스트")
+    void deleteWiseSayingFile() throws IOException {
+        String saying = "명언";
+        String author = "작가";
+        int id = wiseSayingService.addWiseSaying(saying, author);
+        wiseSayingService.saveToFile(id, saying, author, filePath);
+
+        wiseSayingService.deleteWiseSayingFile(id, filePath);
+
+        String savedFilePath = filePath + id + FileUitl.jsonFileType();
+        File file = new File(savedFilePath);
+        assertThat(file.exists()).isFalse();
+    }
+
+    @Test
+    @DisplayName("모든 파일 삭제 테스트")
+    void deleteAllFiles() throws IOException {
+        wiseSayingService.addWiseSaying("명언1", "작가1");
+        wiseSayingService.addWiseSaying("명언2", "작가2");
+        wiseSayingService.saveToFile(1, "명언1", "작가1", filePath);
+        wiseSayingService.saveToFile(2, "명언2", "작가2", filePath);
+
+        wiseSayingService.deleteAllFiles(filePath);
+
+        File directory = new File(filePath);
+        File[] files = directory.listFiles();
+        assertThat(files).isEmpty();
+    }
+
 }
