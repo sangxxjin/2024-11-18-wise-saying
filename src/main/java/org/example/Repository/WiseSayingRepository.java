@@ -9,6 +9,7 @@ import java.util.Map;
 import java.util.NoSuchElementException;
 import org.example.model.WiseSaying;
 import org.example.util.FileUitl;
+import org.example.util.StringUtil;
 
 public class WiseSayingRepository {
 
@@ -70,12 +71,9 @@ public class WiseSayingRepository {
         return maxId;
     }
 
-    public void saveToFile(int id, String saying, String author,String baseFilePath) throws IOException {
-        String json = "{\n" +
-            "  \"id\": " + id + ",\n" +
-            "  \"content\": \"" + saying + "\",\n" +
-            "  \"author\": \"" + author + "\"\n" +
-            "}";
+    public void saveToFile(int id, String saying, String author, String baseFilePath)
+        throws IOException {
+        String json = StringUtil.parseToJson(id, saying, author);
 
         String filePath = baseFilePath + id + ".json";
         try (FileWriter writer = new FileWriter(filePath)) {
@@ -95,7 +93,7 @@ public class WiseSayingRepository {
         }
     }
 
-    public void deleteWiseSayingFile(int id,String baseFilePath) {
+    public void deleteWiseSayingFile(int id, String baseFilePath) {
         String filePath = baseFilePath + id + ".json";
         File file = new File(filePath);
         try {
@@ -107,23 +105,23 @@ public class WiseSayingRepository {
     }
 
     public void saveLastWiseSayingIdToFile(String baseFilePath) throws IOException {
-        String filePath = baseFilePath+FileUitl.lastIdFileName();
+        String filePath = baseFilePath + FileUitl.lastIdFileName();
         int lastWiseSayingId = getLastWiseSayingId();
         try (FileWriter writer = new FileWriter(filePath)) {
             writer.write(String.valueOf(lastWiseSayingId));
         }
     }
 
-    public void saveDataFile(List<WiseSaying> wiseSayings,String baseFilePath) {
-        String filePath = baseFilePath+ FileUitl.dataFileName();
+    public void saveDataFile(List<WiseSaying> wiseSayings, String baseFilePath) {
+        String filePath = baseFilePath + FileUitl.dataFileName();
         try (FileWriter writer = new FileWriter(filePath)) {
             List<String> jsonList = new ArrayList<>();
             for (WiseSaying wiseSaying : wiseSayings) {
-                String json = "{" +
-                    "\"id\": " + wiseSaying.getId() + "," +
-                    "\"content\": \"" + wiseSaying.getWiseSaying() + "\"," +
-                    "\"author\": \"" + wiseSaying.getAuthor() + "\"" +
-                    "}";
+                String json = StringUtil.parseToJson(
+                    wiseSaying.getId(),
+                    wiseSaying.getWiseSaying(),
+                    wiseSaying.getAuthor()
+                );
                 jsonList.add(json);
             }
             writer.write("[");
