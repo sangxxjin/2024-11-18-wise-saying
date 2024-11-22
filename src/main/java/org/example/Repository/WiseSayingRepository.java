@@ -76,14 +76,14 @@ public class WiseSayingRepository {
             "  \"author\": \"" + author + "\"\n" +
             "}";
 
-        String filePath = "src/main/java/org/example/db/wiseSaying/" + id + ".json";
+        String filePath = "src/main/resources/db/wiseSaying/" + id + ".json";
         try (FileWriter writer = new FileWriter(filePath)) {
             writer.write(json);
         }
     }
 
     public void deleteAllFiles() {
-        File directory = new File("src/main/java/org/example/db/wiseSaying");
+        File directory = new File("src/main/resources/db/wiseSaying");
         File[] files = directory.listFiles();
         for (File file : files) {
             try {
@@ -95,7 +95,7 @@ public class WiseSayingRepository {
     }
 
     public void deleteWiseSayingFile(int id) {
-        String filePath = "src/main/java/org/example/db/wiseSaying/" + id + ".json";
+        String filePath = "src/main/resources/db/wiseSaying/" + id + ".json";
         File file = new File(filePath);
         try {
             file.delete();
@@ -106,7 +106,7 @@ public class WiseSayingRepository {
     }
 
     public void saveLastWiseSayingIdToFile() throws IOException {
-        String filePath = "src/main/java/org/example/db/wiseSaying/lastId.txt";
+        String filePath = "src/main/resources/db/wiseSaying/lastId.txt";
         int lastWiseSayingId = getLastWiseSayingId();
         try (FileWriter writer = new FileWriter(filePath)) {
             writer.write(String.valueOf(lastWiseSayingId));
@@ -114,7 +114,7 @@ public class WiseSayingRepository {
     }
 
     public void saveDataFile(List<WiseSaying> wiseSayings) {
-        String filePath = "src/main/java/org/example/db/wiseSaying/data.json";
+        String filePath = "src/main/resources/db/wiseSaying/data.json";
         try (FileWriter writer = new FileWriter(filePath)) {
             List<String> jsonList = new ArrayList<>();
             for (WiseSaying wiseSaying : wiseSayings) {
