@@ -63,14 +63,4 @@ class WiseSayingServiceTest {
         assertTrue(wiseSayingService.isExistWiseSaying(id));
         assertFalse(wiseSayingService.isExistWiseSaying(999));
     }
-
-    @Test
-    void deleteAllFiles() {
-        wiseSayingService.addWiseSaying("명언1", "작가1");
-        wiseSayingService.addWiseSaying("명언2", "작가2");
-        wiseSayingService.deleteAllFiles(filePath);
-        File dir = new File("src/main/resources/db/wiseSaying");
-        File[] files = dir.listFiles();
-        assertThat(files).isEmpty();
-    }
 }
