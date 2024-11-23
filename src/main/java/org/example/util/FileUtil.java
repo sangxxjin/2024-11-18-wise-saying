@@ -5,6 +5,9 @@ import java.io.FileWriter;
 import java.io.IOException;
 
 public class FileUtil {
+    private FileUtil() {
+
+    }
 
     public static void writeToFile(String filePath, String content) throws IOException {
         try (FileWriter writer = new FileWriter(filePath)) {
