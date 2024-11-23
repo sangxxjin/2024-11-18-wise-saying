@@ -8,7 +8,7 @@ import java.io.File;
 import java.io.IOException;
 import java.util.List;
 import org.example.model.WiseSaying;
-import org.example.util.FileUitl;
+import org.example.config.AppConfig;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -21,7 +21,7 @@ class WiseSayingServiceTest {
     @BeforeEach
     void setUp() {
         wiseSayingService = new WiseSayingService();
-        filePath = FileUitl.testFilePath();
+        filePath = AppConfig.testFilePath();
     }
 
     @Test
@@ -72,7 +72,7 @@ class WiseSayingServiceTest {
         String author = "작가";
         int id = wiseSayingService.addWiseSaying(saying, author);
         wiseSayingService.saveToFile(id, saying, author, filePath);
-        String savedFilePath = filePath + id + FileUitl.jsonFileType();
+        String savedFilePath = filePath + id + AppConfig.jsonFileType();
         File file = new File(savedFilePath);
         assertThat(file.exists()).isTrue();
 
@@ -89,7 +89,7 @@ class WiseSayingServiceTest {
 
         wiseSayingService.deleteWiseSayingFile(id, filePath);
 
-        String savedFilePath = filePath + id + FileUitl.jsonFileType();
+        String savedFilePath = filePath + id + AppConfig.jsonFileType();
         File file = new File(savedFilePath);
         assertThat(file.exists()).isFalse();
     }
