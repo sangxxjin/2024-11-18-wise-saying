@@ -44,7 +44,7 @@ public class WiseSayingRepository {
     public int updateWiseSaying(int id, String saying, String author) {
         for (WiseSaying wiseSaying : wiseSayings) {
             if (wiseSaying.getId() == id) {
-                wiseSaying.setSaying(saying);
+                wiseSaying.setContent(saying);
                 wiseSaying.setAuthor(author);
             }
         }

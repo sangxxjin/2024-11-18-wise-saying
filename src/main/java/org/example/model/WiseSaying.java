@@ -4,12 +4,12 @@ public class WiseSaying {
 
     private static int nextId = 1;
     private final int id;
-    private String saying;
+    private String content;
     private String author;
 
-    public WiseSaying(String saying, String author) {
+    public WiseSaying(String content, String author) {
         this.id = nextId++;
-        this.saying = saying;
+        this.content = content;
         this.author = author;
     }
 
@@ -18,15 +18,15 @@ public class WiseSaying {
     }
 
     public String getWiseSaying() {
-        return this.saying;
+        return this.content;
     }
 
     public String getAuthor() {
         return this.author;
     }
 
-    public void setSaying(String saying) {
-        this.saying = saying;
+    public void setContent(String content) {
+        this.content = content;
     }
 
     public void setAuthor(String author) {
