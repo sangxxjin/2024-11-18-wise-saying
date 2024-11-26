@@ -4,8 +4,8 @@ public enum Command {
     EXIT("종료"),
     REGISTER("등록"),
     LIST("목록"),
-    DELETE("삭제"),
-    UPDATE("수정"),
+    DELETE("삭제?id="),
+    UPDATE("수정?id="),
     BUILD("빌드");
 
 
